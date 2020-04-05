@@ -8,6 +8,19 @@
     >
       Create Battle
     </button>
+    <br>
+    <sample-upload />
+    <ul v-if="samples.length > 0">
+      <li
+        v-for="sample in samples"
+        :key="sample.id"
+      >
+        {{ sample.filename }}
+      </li>
+    </ul>
+    <span v-else>
+      You have no samples yet.
+    </span>
   </card>
 </template>
 
@@ -16,11 +29,28 @@ import axios from 'axios'
 export default {
   middleware: 'auth',
 
+  data () {
+    return {
+      samples: []
+    }
+  },
+
   metaInfo () {
     return { title: this.$t('home') }
   },
 
+  mounted () {
+    this.updateSamples()
+  },
+
   methods: {
+    updateSamples () {
+      axios.get('/api/samples')
+        .then((response) => {
+          this.samples = response.data.data;
+        })
+    },
+
     createBattle () {
       console.log('Create Battle')
       var battle = {

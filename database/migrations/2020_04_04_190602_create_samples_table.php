@@ -17,6 +17,8 @@ class CreateSamplesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('filename');
+            $table->string('path');
+            $table->integer('size');
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ use App\Http\Requests\CreateBattle;
 class BattleController extends BaseController
 {
     public function __construct() {
-        //$this->middleware('auth:api')->except(['index', 'show']);
+        $this->middleware('auth:api')->except(['index', 'show']);
     }
 
     public function index() {
@@ -35,7 +35,7 @@ class BattleController extends BaseController
 
         $battle->save();
 
-        return $this->sendResponse($battle);
+        return new BattleResource($battle);
     }
 
     public function show (Battle $battle) {
