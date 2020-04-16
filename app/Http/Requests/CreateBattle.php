@@ -26,8 +26,7 @@ class CreateBattle extends FormRequest
         return [
             'name'  => 'required|max:255',
             'description' => '',
-            //'sample_id' => 'required|exists:samples,id',
-            'sample_id' => 'required',
+            'sample_id' => 'required|exists:samples,id',
             'start_time' => 'required',
             'end_time' => 'required',
         ];

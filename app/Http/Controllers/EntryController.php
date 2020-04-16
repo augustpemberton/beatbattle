@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 
 use App\Entry;
 use App\Battle;
 use App\Http\Resources\EntryResource;
+use App\Http\Requests\CreateEntryRequest;
 
 class EntryController extends BaseController
 {
@@ -14,13 +16,13 @@ class EntryController extends BaseController
         $this->middleware('auth:api')->except(['show']);
     }
 
-    public function show(Battle $battle) {
+    public function show($battleID) {
         return EntryResource::collection(
-            Entry::where('battle_id', $battle->id)->with('sample')->get()
+            Entry::where('battle_id', $battleID)->with('sample')->with('user')->get()
         );
     }
 
-    public function create(CreateEntryRequest $request) {
+    public function store(CreateEntryRequest $request) {
         $entry = new Entry();
         $entry->sample_id = $request->sample_id;
         $entry->battle_id = $request->battle_id;

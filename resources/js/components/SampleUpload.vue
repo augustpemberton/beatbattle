@@ -63,10 +63,10 @@ export default {
             }
           }
         ).then(function (data) {
-          this.files[i].id = data['data']['id']
+          this.files[i].id = data.data.data.id
           this.files.splice(i, 1, this.files[i])
           this.$emit('input', this.files[i].id)
-          console.log('success')
+          console.log('Uploaded sample (id:' + this.files[i].id + ')')
         }.bind(this)).catch(function (data) {
           console.log('error')
         })

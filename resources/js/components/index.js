@@ -6,6 +6,7 @@ import Checkbox from './Checkbox'
 
 import SampleUpload from './SampleUpload'
 import CreateBattle from './CreateBattle'
+import CreateEntry from './CreateEntry'
 import BattleList from './BattleList'
 import BattleCard from './BattleCard'
 import { HasError, AlertError, AlertSuccess } from 'vform'
@@ -22,6 +23,7 @@ import { HasError, AlertError, AlertSuccess } from 'vform'
 
   SampleUpload,
   CreateBattle,
+  CreateEntry,
   BattleList,
   BattleCard
 

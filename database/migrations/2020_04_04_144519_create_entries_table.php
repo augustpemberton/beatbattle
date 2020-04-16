@@ -19,6 +19,7 @@ class CreateEntriesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('battle_id');
             $table->boolean('listenable_early')->default(0);
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

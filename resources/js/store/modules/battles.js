@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import axios from 'axios'
 import * as types from '../mutation-types'
 
@@ -10,7 +11,7 @@ export const state = {
 // getters
 export const getters = {
   battles: state => state.battles,
-  entries: state => state.entries
+  entries: state => battleid => state.entries[battleid]
 }
 
 // mutations
@@ -22,10 +23,12 @@ export const mutations = {
     state.battles = null
   },
   [types.FETCH_ENTRIES_SUCCESS] (state, { id, entries }) {
-    state.entries[id] = entries
+    console.log(id)
+    console.log(entries)
+    Vue.set(state.entries, id, entries)
   },
   [types.FETCH_ENTRIES_FAILURE] (state, { id }) {
-    state.entries[id] = null
+    Vue.set(state.entries, id, null)
   }
 }
 

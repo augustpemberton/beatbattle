@@ -13,6 +13,10 @@ class Entry extends Model
     }
 
     public function sample() {
-        return $this->hasOne('App\Sample');
+        return $this->belongsTo('App\Sample');
+    }
+
+    public function user() {
+      return $this->belongsTo('App\User');
     }
 }

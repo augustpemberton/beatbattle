@@ -1,5 +1,5 @@
 <template>
-  <modal height='auto' name="create-battle">
+  <modal height="auto" name="create-battle">
     <form>
       <div class="form-group">
         <label for="name-input">Name</label>
@@ -15,11 +15,11 @@
       </div>
       <div class="form-group">
         <label for="start-time-input">Start Time</label>
-        <datetime id="start-time-input" v-model="battle.start_time" />
+        <datetime id="start-time-input" v-model="battle.start_time" type="datetime" />
       </div>
       <div class="form-group">
         <label for="end-time-input">End Time</label>
-        <datetime id="end-time-input" v-model="battle.end_time" />
+        <datetime id="end-time-input" v-model="battle.end_time" type="datetime" />
       </div>
       <button
         class="btn btn-primary"
