@@ -32,6 +32,7 @@ class BattleController extends BaseController
         $battle->start_time     = $request->input('start_time');
         $battle->end_time       = $request->input('end_time');
         $battle->user_id        = Auth::user()->id;
+        $battle->status         = config('battle.status.upcoming');
 
         $battle->save();
 

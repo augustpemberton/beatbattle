@@ -1,27 +1,12 @@
 <template>
   <div class="container">
     <div class="large-12 medium-12 small-12 filezone">
-      <input
-        id="files"
-        ref="files"
-        type="file"
-        multiple
-        @change="handleFiles()"
-      >
-      <p>
-        Drop your files here <br>or click to search
-      </p>
+      <input id="files" ref="files" type="file" multiple @change="handleFiles()">
+      <p> Drop your files here <br>or click to search </p>
     </div>
 
-    <div
-      v-for="(file, key) in files"
-      :key="key"
-      class="file-listing"
-    >
-      <img
-        :ref="'preview'+parseInt(key)"
-        class="preview"
-      >
+    <div v-for="(file, key) in files" :key="key" class="file-listing">
+      <img :ref="'preview'+parseInt(key)" class="preview">
       {{ file.name }}
       <div
         v-if="file.id > 0"
@@ -42,6 +27,7 @@
 import axios from 'axios'
 export default {
   name: 'SampleUpload',
+  props: ['value'],
   data () {
     return {
       files: []
@@ -79,6 +65,7 @@ export default {
         ).then(function (data) {
           this.files[i].id = data['data']['id']
           this.files.splice(i, 1, this.files[i])
+          this.$emit('input', this.files[i].id)
           console.log('success')
         }.bind(this)).catch(function (data) {
           console.log('error')

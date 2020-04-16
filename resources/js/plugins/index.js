@@ -1,3 +1,5 @@
 import './axios'
 import './fontawesome'
+import './datetime'
+import './modal'
 import 'bootstrap'

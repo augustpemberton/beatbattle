@@ -8,3 +8,7 @@ export const UPDATE_USER = 'UPDATE_USER'
 
 // lang.js
 export const SET_LOCALE = 'SET_LOCALE'
+
+// battles.js
+export const FETCH_BATTLES_SUCCESS = 'FETCH_BATTLES_SUCCESS'
+export const FETCH_BATTLES_FAILURE = 'FETCH_BATTLES_FAILURE'
