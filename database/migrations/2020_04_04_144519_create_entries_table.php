@@ -15,9 +15,9 @@ class CreateEntriesTable extends Migration
     {
         Schema::create('entries', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('sample_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('battle_id');
-            $table->integer('duration');
             $table->boolean('listenable_early')->default(0);
             $table->timestamps();
         });

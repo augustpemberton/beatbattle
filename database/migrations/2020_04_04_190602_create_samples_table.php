@@ -19,6 +19,7 @@ class CreateSamplesTable extends Migration
             $table->string('filename');
             $table->string('path');
             $table->integer('size');
+            $table->string('file_hash');
             $table->timestamps();
         });
     }

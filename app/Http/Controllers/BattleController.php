@@ -54,6 +54,10 @@ class BattleController extends BaseController
     }
 
     public function delete (Battle $battle) {
+        if ($request->user()->id != $battle->user_id) {
+            return $this->sendError('You can only edit your own battles.', 403);
+        }
+
         $battle->delete();
         return $this->sendEmptyResponse();
     }

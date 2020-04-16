@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 Route::apiResource('battles', 'BattleController');
 Route::apiResource('samples', 'SampleController');
+Route::apiResource('entries', 'EntryController')->except(['index']);
+
+Route::get('entries/{id}', 'EntryController@show');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout');

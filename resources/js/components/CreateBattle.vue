@@ -11,7 +11,7 @@
       </div>
       <div class="form-group">
         <label for="sample-upload">Sample</label>
-        <!--<sample-upload id="sample-upload" v-model="battle.sample_id" />-->
+        <sample-upload id="sample-upload" v-model="battle.sample_id" />
       </div>
       <div class="form-group">
         <label for="start-time-input">Start Time</label>

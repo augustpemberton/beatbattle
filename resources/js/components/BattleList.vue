@@ -15,9 +15,6 @@ export default {
   },
   computed: mapGetters({
     battles: 'battles/battles'
-  }),
-  mounted () {
-    this.$store.dispatch('battles/fetchBattles')
-  }
+  })
 }
 </script>
