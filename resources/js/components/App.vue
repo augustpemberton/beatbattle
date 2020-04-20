@@ -46,6 +46,7 @@ export default {
 
   mounted () {
     this.$loading = this.$refs.loading
+    this.$store.dispatch('timezone/updateTimezone')
   },
 
   methods: {

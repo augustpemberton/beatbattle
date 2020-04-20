@@ -3,6 +3,10 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Timezone;
+use Carbon\Carbon;
+
+use App\Http\Resources\SampleResource;
 
 class BattleResource extends JsonResource
 {
@@ -14,15 +18,16 @@ class BattleResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id'            => $this->id,
-            'name'          => $this->name,
-            'description'   => $this->description,
-            'user_id'       => $this->user_id,
-            'sample_id'     => $this->sample_id,
-            'start_time'    => (string) $this->start_time,
-            'end_time'      => (string) $this->end_time,
-            'status'        => $this->status
-        ];
+      return [
+          'id'            => $this->id,
+          'name'          => $this->name,
+          'description'   => $this->description,
+          'user'          => $this->user,
+          'samples'       => SampleResource::collection($this->samples),
+          'start_time'    => $this->start_time,
+          'end_time'      => $this->end_time,
+          'voting_time'   => $this->voting_time,
+          'status'        => $this->status
+      ];
     }
 }

@@ -31,6 +31,7 @@ class CreateSamplesTable extends Migration
      */
     public function down()
     {
+        Artisan::call('samples:clear');
         Schema::dropIfExists('samples');
     }
 }

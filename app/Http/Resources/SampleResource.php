@@ -16,7 +16,8 @@ class SampleResource extends JsonResource
     {
         return [
             'filename'  => $this->filename,
-            'id'        => $this->id
+            'id'        => $this->id,
+            'user'      => $this->user
         ];
     }
 }

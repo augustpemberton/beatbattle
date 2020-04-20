@@ -5,29 +5,32 @@
       <p> Drop your files here <br>or click to search </p>
     </div>
 
-    <div v-for="(file, key) in files" :key="key" class="file-listing">
-      <img :ref="'preview'+parseInt(key)" class="preview">
-      {{ file.name }}
-      <div
-        v-if="file.id > 0"
-        class="success-container"
-      >
-        Success
-      </div>
-      <div v-else class="remove-container">
-        <a class="remove" @click="removeFile(key)">Remove</a>
-      </div>
-    </div>
-
-    <a v-show="files.length > 0" class="submit-button" @click="submitFiles()">Submit</a>
+    <ul class="list-group">
+      <li v-for="(file,key) in files" :key="key" class="list-group-item d-flex justify-content-between align-items-center">
+        {{ file.name }}
+        <button class="btn btn-danger btn-xs" @click="removeFile(key)">
+          <fa icon="times" fixed-width />
+        </button>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import Swal from 'sweetalert2'
 export default {
   name: 'SampleUpload',
-  props: ['value'],
+  props: {
+    'value': {
+      type: Array,
+      default: null
+    },
+    'maxFiles': {
+      type: Number,
+      default: 1
+    }
+  },
+
   data () {
     return {
       files: []
@@ -38,39 +41,25 @@ export default {
     handleFiles () {
       let uploadedFiles = this.$refs.files.files
 
-      for (var i = 0; i < uploadedFiles.length; i++) {
-        this.files.push(uploadedFiles[i])
+      if (this.files.length + uploadedFiles.length > this.maxFiles) {
+        Swal.fire({
+          type: 'error',
+          title: 'Too many files!',
+          text: 'You can only upload up to ' + this.maxFiles + ' files.',
+          reverseButtons: true,
+          confirmButtonText: 'Ok'
+        })
+      } else {
+        for (var i = 0; i < uploadedFiles.length; i++) {
+          this.files.push(uploadedFiles[i])
+        }
+        this.$emit('input', this.files)
       }
     },
 
     removeFile (key) {
       this.files.splice(key, 1)
-    },
-
-    submitFiles () {
-      for (let i = 0; i < this.files.length; i++) {
-        if (this.files[i].id) {
-          continue
-        }
-        let formData = new FormData()
-        formData.append('file', this.files[i])
-
-        axios.post('/api/samples',
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          }
-        ).then(function (data) {
-          this.files[i].id = data.data.data.id
-          this.files.splice(i, 1, this.files[i])
-          this.$emit('input', this.files[i].id)
-          console.log('Uploaded sample (id:' + this.files[i].id + ')')
-        }.bind(this)).catch(function (data) {
-          console.log('error')
-        })
-      }
+      this.$emit('input', this.files)
     }
   }
 }

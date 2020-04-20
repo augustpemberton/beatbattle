@@ -1,54 +1,89 @@
 <template>
   <modal height="auto" name="create-entry">
-    <form>
+    <form @submit.prevent="submitEntry" @keydown="entry.onKeydown($event)">
+      <!-- Sample -->
       <div class="form-group">
         <label for="sample-upload">Sample</label>
-        <sample-upload id="sample-upload" v-model="entry.sample_id" />
+        <sample-upload
+          id="sample-upload"
+          v-model="entry.samples"
+          :class="{ 'is-invalid': entry.errors.has('samples') }"
+        />
+        <has-error :form="entry" field="samples" />
       </div>
+
+      <!-- Notes -->
       <div class="form-group">
-        <label for="description-input">Notes</label>
-        <input id="description-input" v-model="entry.notes" class="form-control" type="text">
+        <label for="notes-input">Notes</label>
+        <textarea
+          id="notes-input"
+          v-model="entry.notes"
+          :class="{ 'is-invalid': entry.errors.has('notes') }"
+          class="form-control"
+          rows="3"
+        />
+        <has-error :form="entry" field="notes" />
       </div>
+
+      <!-- Listenable Early -->
       <div class="form-check">
-        <input id="listenable-early-input" v-model="entry.listenable_early" type="checkbox" class="form-check-input">
+        <input
+          id="listenable-early-input"
+          v-model="entry.listenable_early"
+          type="checkbox"
+          :class="{ 'is-invalid': entry.errors.has('listenable_early') }"
+          class="form-check-input"
+        >
         <label for="listenable-early-input">Allow other users to listen to your submission before the game is finished?</label>
+        <has-error :form="entry" field="listenable_early" />
       </div>
-      <button
-        class="btn btn-primary"
-        @click.prevent="submitEntry()"
-      >
-        Submit Entry
-      </button>
+
+      <!-- Submit -->
+      <v-button :loading="entry.busy">
+        Create Entry
+      </v-button>
     </form>
   </modal>
 </template>
 <script>
-import axios from 'axios'
+import Form from 'vform'
+import { objectToFormData } from 'object-to-formdata'
+
 export default {
   name: 'CreateEntry',
   props: {
-    battleId: {
-      type: Number,
-      default: 0
+    battle: {
+      type: Object,
+      default: null
     }
   },
   data () {
     return {
-      entry: {
-        sample_id: 0,
+      entry: new Form({
+        samples: [],
         notes: '',
         listenable_early: false
-      }
+      })
     }
   },
   methods: {
     async submitEntry () {
-      this.entry.battle_id = this.battleId
-      axios.post('/api/entries', this.entry)
-        .then(async (response) => {
-          console.log(response)
-          await this.$store.dispatch('battles/fetchEntries')
-        })
+      // Set the entries battle ID
+      this.entry.battle_id = this.battle.id
+      
+      // Convert boolean into int
+      this.entry.listenable_early = this.entry.listenable_early ? 1 : 0
+
+      await this.entry.submit('post', '/api/entries', {
+        transformRequest: [function (data, headers) {
+          console.log(objectToFormData(data))
+          return objectToFormData(data)
+        }]
+      })
+      await this.$store.dispatch('battles/fetchEntries', this.battle.id)
+
+      this.$modal.hide('create-entry')
+      this.$noty.success('Entry created successfully!')
     }
   }
 }

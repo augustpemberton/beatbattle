@@ -7,8 +7,13 @@ import Checkbox from './Checkbox'
 import SampleUpload from './SampleUpload'
 import CreateBattle from './CreateBattle'
 import CreateEntry from './CreateEntry'
+import EditBattle from './EditBattle'
+import EditEntry from './EditEntry'
 import BattleList from './BattleList'
+import EntryList from './EntryList'
 import BattleCard from './BattleCard'
+import BattleCountdown from './BattleCountdown'
+import VoteButton from './VoteButton'
 import { HasError, AlertError, AlertSuccess } from 'vform'
 
 // Components that are registered globaly.
@@ -24,8 +29,13 @@ import { HasError, AlertError, AlertSuccess } from 'vform'
   SampleUpload,
   CreateBattle,
   CreateEntry,
+  EditBattle,
+  EditEntry,
   BattleList,
-  BattleCard
+  EntryList,
+  BattleCard,
+  BattleCountdown,
+  VoteButton
 
 ].forEach(Component => {
   Vue.component(Component.name, Component)

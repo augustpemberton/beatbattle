@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
   name: 'BattleList',
   metaInfo () {
@@ -13,8 +12,11 @@ export default {
       title: 'Battles'
     }
   },
-  computed: mapGetters({
-    battles: 'battles/battles'
-  })
+  props: {
+    battles: {
+      type: Array,
+      default: () => []
+    }
+  }
 }
 </script>

@@ -18,10 +18,12 @@ class CreateBattlesTable extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('sample_id');
+            $table->unsignedBigInteger('winner_id')->nullable();
             $table->dateTime('start_time');
             $table->dateTime('end_time');
+            $table->dateTime('voting_time');
             $table->integer('status')->default(0);
+            $table->integer('max_votes')->default(1);
             $table->timestamps();
         });
     }

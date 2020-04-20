@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Log;
 use Illuminate\Database\Eloquent\Model;
 
 class Entry extends Model
@@ -18,5 +19,18 @@ class Entry extends Model
 
     public function user() {
       return $this->belongsTo('App\User');
+    }
+
+    public function votes() {
+      return $this->hasMany('App\Vote');
+    }
+
+    public static function boot() {
+      parent::boot();
+
+      self::deleting(function($entry) {
+        Log::info('Deleting entry: ' . $entry->id);
+        $entry->sample->tryDelete(null, $entry->id);
+      });
     }
 }

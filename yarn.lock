@@ -1068,6 +1068,11 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
+animate.css@^3.7.2:
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/animate.css/-/animate.css-3.7.2.tgz#e73e0d50e92cb1cfef1597d9b38a9481020e08ea"
+  integrity sha512-0bE8zYo7C0KvgOYrSVfrzkbYk6IOTVPNqkiHg2cbyF4Pq/PXzilz4BRWA3hwEUBoMp5VBgrC29lQIZyhRWdBTw==
+
 ansi-colors@^3.0.0:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
@@ -4299,6 +4304,11 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
+laravel-echo@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/laravel-echo/-/laravel-echo-1.7.0.tgz#066479dbf9350c23a3dc5039b8f546a8cdddb88a"
+  integrity sha512-ZihYxqqhR1FAllsdYLwHHkopyN9pujG4H0p2SIK1r4sTnQnZw+P9WAkDF3QoHJFoCo44AUKWmyw7G/HqWgnObQ==
+
 laravel-mix-versionhash@^1.0.7:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/laravel-mix-versionhash/-/laravel-mix-versionhash-1.1.2.tgz#858fa4e00ca89a45a7b1c13bca7616f546b1bd3a"
@@ -4810,6 +4820,18 @@ mkdirp@^0.5.1, mkdirp@^0.5.3, mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
+moment-timezone@^0.5.28:
+  version "0.5.28"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.28.tgz#f093d789d091ed7b055d82aa81a82467f72e4338"
+  integrity sha512-TDJkZvAyKIVWg5EtVqRzU97w0Rb0YVbfpqyjgu6GwXCAohVRqwZjf4fOzDE6p1Ch98Sro/8hQQi65WDXW5STPw==
+  dependencies:
+    moment ">= 2.9.0"
+
+"moment@>= 2.9.0", moment@^2.19.2:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -4986,6 +5008,11 @@ normalize-url@^3.0.0:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
   integrity sha512-U+JJi7duF1o+u2pynbp2zXDW2/PADgC30f0GsHZtRh+HOcXHnw137TrNlyxxRvWW5fjKd3bcLHPxofWuCjaeZg==
 
+noty@^3.1.0:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/noty/-/noty-3.1.4.tgz#f9eaac9df7883921b270ec6f2869e9aeedd8071b"
+  integrity sha512-HKOH392eBygTojC6fXVBOFxTqebjnn/e7/AS69zlWSH3Tn6+0RzfT3aDCGx2PY6Ed3xKBPhtz+xeHAHQGEh68Q==
+
 npm-run-path@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/npm-run-path/-/npm-run-path-2.0.2.tgz#35a9232dfa35d7067b4cb2ddf2357b1871536c5f"
@@ -5043,6 +5070,11 @@ object-path@^0.9.2:
   version "0.9.2"
   resolved "https://registry.yarnpkg.com/object-path/-/object-path-0.9.2.tgz#0fd9a74fc5fad1ae3968b586bda5c632bd6c05a5"
   integrity sha1-D9mnT8X60a45aLWGvaXGMr1sBaU=
+
+object-to-formdata@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/object-to-formdata/-/object-to-formdata-3.0.6.tgz#35744a8a7b3fed2396e1cd031cb8d995be0615e3"
+  integrity sha512-Cg1g9GwT2FOjn7NcIclM+/JIbIlDXhXC0cra3AixpGd6jXu/RECxLxA29U3zWpseI08cUeGQtHXegcyDIwgC+g==
 
 object-visit@^1.0.0:
   version "1.0.1"
@@ -5439,6 +5471,11 @@ pkg-up@^2.0.0:
   integrity sha1-yBmscoBZpGHKscOImivjxJoATX8=
   dependencies:
     find-up "^2.1.0"
+
+pluralize@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
+  integrity sha512-ARhBOdzS3e41FbkW/XWrTEtukqqLoK5+Z/4UeDaLuSW+39JPeFgs4gCGqsrJHVZX0fUrx//4OF0K1CUGwlIFow==
 
 popper.js@^1.15.0:
   version "1.16.1"
@@ -5910,6 +5947,11 @@ punycode@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
+
+pusher-js@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/pusher-js/-/pusher-js-5.1.1.tgz#267495d3a821d511bdb20cf3c624ba0556e0b7df"
+  integrity sha512-f2tdoA7NvJQkU8Y/iCH25ZSNGxnwCXrVbwos38isX6gnjsSZ1aksWvyZddm2N0sHJWyl+oPBz/MzU5cevVDyEQ==
 
 q@^1.1.2:
   version "1.5.1"
@@ -7329,6 +7371,20 @@ vue-meta@^1.6.0:
     lodash.uniqueid "^4.0.1"
     object-assign "^4.1.1"
 
+vue-moment@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/vue-moment/-/vue-moment-4.1.0.tgz#092a8ff723a96c6f85a0a8e23ad30f0bf320f3b0"
+  integrity sha512-Gzisqpg82ItlrUyiD9d0Kfru+JorW2o4mQOH06lEDZNgxci0tv/fua1Hl0bo4DozDV2JK1r52Atn/8QVCu8qQw==
+  dependencies:
+    moment "^2.19.2"
+
+vue-pluralize@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/vue-pluralize/-/vue-pluralize-0.0.2.tgz#61310447e6e7c9cdb073c164dc36b014cae96484"
+  integrity sha512-NT4Uv/j40yO+yCLIij4nZl9csaXemTqNekYxk7mH+L4t2HZhiJxcg0tc/Q3X6gKv3iaY46Vhz/edDBuH2E6F6w==
+  dependencies:
+    pluralize "^7.0.0"
+
 vue-router@^3.0.6:
   version "3.1.6"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.1.6.tgz#45f5a3a3843e31702c061dd829393554e4328f89"
@@ -7359,6 +7415,18 @@ vue@^2.6.10:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
+
+vuejs-countdown-timer@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/vuejs-countdown-timer/-/vuejs-countdown-timer-2.1.2.tgz#fd266d7fafbf71ef0849af2e00791654b337f4be"
+  integrity sha512-182cE/biIn1TCU3HqN7JPpR1lqbwUJFJl5aghnD5XZqpi0nsUrFSXMo+aYjBxsWCvW0DUEf4HKkgG9Ymf59QkQ==
+
+vuejs-noty@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/vuejs-noty/-/vuejs-noty-0.1.3.tgz#c665b70c9cfdf7c32f0107a734ecd2b86674af78"
+  integrity sha512-qHdEpq3IQMg3Upf6UAQrcEtRGNZfH3gQd1KLJYQE52rmYaNp79ZAj8F7kP2xDKpSBGBERvCUAy7txNiodRxAYg==
+  dependencies:
+    noty "^3.1.0"
 
 vuex-router-sync@^5.0.0:
   version "5.0.0"

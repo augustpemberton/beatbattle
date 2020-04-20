@@ -23,10 +23,12 @@ class CreateEntryRequest extends FormRequest
      */
     public function rules()
     {
+      // TODO not already exists
         return [
-            'description' => 'max:5000',
-            'sample_id'   => 'required|exists:samples,id',
-            'battle_id'   => 'required|exists:battles,id'
+            'notes'             => 'max:1000',
+            'samples'           => 'required|array|between:1,1',
+            'battle_id'         => 'required|exists:battles,id|unique:entries,battle_id,NULL,id,user_id,'.$this->user()->id,
+            'listenable_early'  => 'boolean',
         ];
     }
 }

@@ -35,6 +35,18 @@ axios.interceptors.response.use(response => response, error => {
       cancelButtonText: i18n.t('cancel')
     })
   }
+  
+  console.log(error.response.data)
+  if (status === 422 && error.response.data.error && error.response.data.error.message) {
+    Swal.fire({
+      type: 'error',
+      title: i18n.t('error_alert_title'),
+      text: error.response.data.error.message,
+      reverseButtons: true,
+      confirmButtonText: i18n.t('ok'),
+      cancelButtonText: i18n.t('cancel')
+    })
+  }
 
   if (status === 401 && store.getters['auth/check']) {
     Swal.fire({

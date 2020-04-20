@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateBattle extends FormRequest
+class DeleteVoteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class CreateBattle extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,11 +24,7 @@ class CreateBattle extends FormRequest
     public function rules()
     {
         return [
-            'name'  => 'required|max:255',
-            'description' => '',
-            'sample_id' => 'required|exists:samples,id',
-            'start_time' => 'required',
-            'end_time' => 'required',
+            //
         ];
     }
 }

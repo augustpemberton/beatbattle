@@ -15,8 +15,11 @@ use Illuminate\Support\Facades\Route;
 * M
 */
 Route::apiResource('battles', 'BattleController');
-Route::apiResource('samples', 'SampleController');
+Route::apiResource('samples', 'SampleController')->except(['store']);
 Route::apiResource('entries', 'EntryController')->except(['index']);
+Route::post('/votes', 'VoteController@store');
+Route::get('/votes/{id}', 'VoteController@show');
+Route::delete('/votes/{id}', 'VoteController@destroy');
 
 Route::get('entries/{id}', 'EntryController@show');
 
