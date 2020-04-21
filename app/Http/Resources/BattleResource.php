@@ -23,6 +23,7 @@ class BattleResource extends JsonResource
           'name'          => $this->name,
           'description'   => $this->description,
           'user'          => $this->user,
+          'winner'        => $this->winner,
           'samples'       => SampleResource::collection($this->samples),
           'start_time'    => $this->start_time,
           'end_time'      => $this->end_time,

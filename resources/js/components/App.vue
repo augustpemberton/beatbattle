@@ -47,6 +47,10 @@ export default {
   mounted () {
     this.$loading = this.$refs.loading
     this.$store.dispatch('timezone/updateTimezone')
+    window.echo.channel('battles')
+      .listen('BattleChanged', (e) => {
+        this.$store.dispatch('battles/fetchBattle', e.battle_id)
+      })
   },
 
   methods: {

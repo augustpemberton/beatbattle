@@ -13,6 +13,8 @@ use App\Battle;
 use App\Sample;
 use App\Entry;
 use App\Events\NewBattle;
+use App\Events\DeleteBattle;
+use App\Events\BattleChanged;
 use App\Traits\SaveSamples;
 use App\Http\Resources\BattleResource;
 use App\Http\Requests\CreateBattleRequest;
@@ -79,7 +81,7 @@ class BattleController extends BaseController
           $battle->update($request->only(['name', 'description', 'start_time', 'end_time']));
         }
 
-
+        broadcast(new BattleChanged($battle->id));
         return new BattleResource($battle);
     }
 
@@ -89,6 +91,7 @@ class BattleController extends BaseController
         }
         
         $battle->delete();
+        broadcast(new DeleteBattle($battle->id));
         return $this->sendEmptyResponse();
     }
 }

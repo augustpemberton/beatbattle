@@ -14,6 +14,8 @@ import EntryList from './EntryList'
 import BattleCard from './BattleCard'
 import BattleCountdown from './BattleCountdown'
 import VoteButton from './VoteButton'
+import Spinner from './Spinner'
+import AudioPlayer from './AudioPlayer'
 import { HasError, AlertError, AlertSuccess } from 'vform'
 
 // Components that are registered globaly.
@@ -35,7 +37,9 @@ import { HasError, AlertError, AlertSuccess } from 'vform'
   EntryList,
   BattleCard,
   BattleCountdown,
-  VoteButton
+  VoteButton,
+  Spinner,
+  AudioPlayer
 
 ].forEach(Component => {
   Vue.component(Component.name, Component)

@@ -14,7 +14,7 @@ class Vote extends Model
     }
 
     public function entry() {
-      return $this->belongsTo('App\Entry');
+      return $this->belongsTo('App\Entry', 'entry_id', 'id');
     }
 
     public function votes_in_same_game() {

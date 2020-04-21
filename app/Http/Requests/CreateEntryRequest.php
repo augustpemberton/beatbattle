@@ -23,7 +23,7 @@ class CreateEntryRequest extends FormRequest
      */
     public function rules()
     {
-      // TODO not already exists
+      // TODO can only vote in voting period
         return [
             'notes'             => 'max:1000',
             'samples'           => 'required|array|between:1,1',

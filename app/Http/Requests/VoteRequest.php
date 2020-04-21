@@ -26,6 +26,8 @@ class VoteRequest extends FormRequest
      */
     public function rules()
     {
+      // TODO can't vote for yourself
+      // TODO can only vote in voting period
         return [
             'entry_id' => 'required|exists:entries,id|max_votes:' . $this->user()->id,
         ];

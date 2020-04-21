@@ -4,7 +4,10 @@
       <h1 class="float-left">
         {{ battle.name }}
       </h1>
-      <div v-if="battle.user && battle.user.id === user.id" class="float-right">
+      <h2 v-if="battle.winner">
+        won by {{ battle.winner.name }}
+      </h2>
+      <div v-if="user && battle.user && battle.user.id === user.id" class="float-right">
         <button :disabled="hasBattleEnded" class="btn btn-info" @click="$modal.show('edit-battle')">
           <fa icon="cog" fixed-width />
         </button>
@@ -33,7 +36,7 @@
           />
           <!-- no need for start time or start label, as it will always started if active -->
           <battle-countdown
-            v-else
+            v-else-if="battle.status != battle_status.finished"
             :end-time="battle.voting_time"
             end-label="Voting ends in"
             @timer-end="votingEnd"
@@ -86,11 +89,17 @@
         </card>
       </div>
     </div>
-    <div class="row entries-info">
+    <div v-if="hasBattleStarted" class="row entries-info">
       <div class="col-sm">
         <!-- Entries -->
         <h2>entries</h2>
-        <entry-list :entries="battleEntries" />
+        <entry-list
+          ref="entry_list"
+          :entries="battleEntries"
+          :has-battle-ended="hasBattleEnded"
+          :has-voting-ended="hasVotingEnded"
+          :winner="battle.winner"
+        />
       </div>
     </div>
   </div>
@@ -100,6 +109,11 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  data () {
+    return {
+      battle_status: window.config.battle_status
+    }
+  },
   computed: {
     battle () {
       if (this.battles == null) return {}
@@ -125,7 +139,7 @@ export default {
     },
     userEntry () {
       if (!this.battleEntries || !this.user) return null
-      return this.battleEntries.find(e => e.user_id === this.user.id)
+      return this.battleEntries.find(e => e.user.id === this.user.id)
     },
     ...mapGetters({
       battles: 'battles/battles',
@@ -155,11 +169,16 @@ export default {
       .listen('DeleteEntry', (e) => {
         this.$store.commit('battles/DELETE_ENTRY', { userid: e.user_id, battleid: e.battle_id })
       })
+      .listen('BattleFinished', (e) => {
+        console.log('battle finished')
+        this.$refs.entry_list.animateEntries()
+        this.$store.dispatch('battles/fetchBattle', this.$route.params.id)
+      })
   },
   methods: {
     update () {
-      // no need to update battles if already loaded by battels page
-      if (this.battles == null) {
+      // no need to update battles if already loaded by battles page
+      if (this.battles.length === 0) {
         this.updateBattles()
       }
       this.updateEntries()

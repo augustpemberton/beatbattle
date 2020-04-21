@@ -6,6 +6,7 @@ use App\Battle;
 use App\User;
 use App\Vote;
 use App\Entry;
+use App\Events\BattleChanged;
 use App\Events\BattleFinished;
 
 use Carbon\Carbon;
@@ -44,20 +45,23 @@ class ProcessBattles extends Command
      */
     public function handle()
     {
+      $this->info('========');
       // active battles
       $active_battles = Battle::where('status', config('battle.status.upcoming'))
         ->where('start_time', '<', Carbon::now('UTC'))->get();
       foreach ($active_battles as $battle) {
         $battle->status = config('battle.status.active');
         $battle->save();
+        broadcast(new BattleChanged($battle->id));
       }
 
       // voting battles
-      $active_battles = Battle::where('status', config('battle.status.active'))
+      $voting_battles = Battle::where('status', config('battle.status.active'))
         ->where('end_time', '<', Carbon::now('UTC'))->get();
-      foreach ($active_battles as $battle) {
+      foreach ($voting_battles as $battle) {
         $battle->status = config('battle.status.voting');
         $battle->save();
+        broadcast(new BattleChanged($battle->id));
       }
 
       // finished battles
@@ -68,10 +72,18 @@ class ProcessBattles extends Command
           ->where('battle_id', $battle->id)
           ->orderBy('votes_count', 'desc')
           ->first();
-        $battle->winner_id = $winning_entry->user->id;
+        if (!$winning_entry) {
+          $this->error('No winning entry.');
+        } else {
+          $battle->winner_id = $winning_entry->user->id;
+        }
         $battle->status = config('battle.status.finished');
         $battle->save();
         broadcast(new BattleFinished($battle->id));
       }
+
+      $this->info(count($active_battles) . " new active battles");
+      $this->info(count($voting_battles) . " new voting battles");
+      $this->info(count($finished_battles) . " new finished battles");
     }
 }

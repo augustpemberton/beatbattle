@@ -4,7 +4,7 @@ import * as types from '../mutation-types'
 
 // state
 export const state = {
-  battles: null,
+  battles: [],
   entries: {},
   votes: {}
 }
@@ -26,7 +26,7 @@ export const mutations = {
   },
   [types.FETCH_BATTLE_SUCCESS] (state, { battle }) {
     var battleIndex = state.battles.findIndex(b => b.id === battle.id)
-    state.battles[battleIndex] = battle
+    Vue.set(state.battles, battleIndex, battle)
   },
   [types.FETCH_BATTLE_FAILURE] (state) {
     // if we cant fetch a specific battle, do nothing
@@ -47,6 +47,11 @@ export const mutations = {
     state.entries[battleid] = state.entries[battleid].filter(e => {
       return e.user.id !== userid
     })
+  },
+  [types.DELETE_BATTLE] (state, { battleid }) {
+    state.battles = state.battles.filter(b => {
+      return b.id !== battleid
+    })
   }
 }
 
@@ -59,9 +64,9 @@ export const actions = {
       commit(types.FETCH_BATTLES_FAILURE)
     }
   },
-  async fetchBattle ({ commit }, id) {
+  async fetchBattle ({ commit }, battleid) {
     try {
-      const { data } = await axios.get('/api/battles/' + id)
+      const { data } = await axios.get('/api/battles/' + battleid)
       commit(types.FETCH_BATTLE_SUCCESS, { battle: data.data })
     } catch (e) {
       commit(types.FETCH_BATTLE_FAILURE)

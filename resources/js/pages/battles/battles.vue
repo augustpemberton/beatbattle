@@ -84,7 +84,12 @@ export default {
     this.$store.dispatch('battles/fetchBattles')
     window.echo.channel('battles')
       .listen('NewBattle', () => {
+        console.log('new battle')
         this.$store.dispatch('battles/fetchBattles')
+      })
+      .listen('DeleteBattle', (e) => {
+        console.log('delete battle')
+        this.$store.commit('battles/DELETE_BATTLE', { battleid: e.battle_id })
       })
   }
 }

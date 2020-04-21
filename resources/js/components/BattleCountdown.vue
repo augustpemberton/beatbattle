@@ -25,7 +25,7 @@
     <template slot="countdown" slot-scope="scope">
       <span>{{ scope.props.days }}</span><i>{{ scope.props.dayTxt }}</i>
       <span>{{ scope.props.hours }}</span><i>{{ scope.props.hourTxt }}</i>
-      <span>{{ scope.props.minutes }}</span><i>{{ scope.props.minutesTxt }}</i>
+      <span>{{ parseInt(scope.props.minutes) + 1 }}</span><i>{{ scope.props.minutesTxt }}</i>
     </template>
     <template slot="end-label" slot-scope="scope">
       <span v-if="scope.props.startLabel !== '' && scope.props.tips && scope.props.labelPosition === 'end'" style="color: red">

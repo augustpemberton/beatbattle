@@ -38,9 +38,9 @@ class AppServiceProvider extends ServiceProvider
           $entry = Entry::findOrFail($entry_id);
           $max_votes = $entry->battle->max_votes;
 
-          $votes = Vote::with(['entry' => function ($q) {
+          $votes = Vote::whereHas('entry', function ($q) use (&$entry){
             $q->where('battle_id', $entry->battle_id);
-          }])->where('user_id', $user_id)->count();
+          })->where('user_id', $user_id)->count();
 
           return ($votes+1 <= $max_votes);
         });

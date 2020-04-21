@@ -18,9 +18,9 @@ class VoteController extends BaseController
     public function show($battleID) {
       $battle = Battle::findOrFail($battleID);
 
-      $votes = Vote::with(['entry' => function ($q) use (&$battle) {
+      $votes = Vote::whereHas('entry', function ($q) use (&$battle) {
         $q->where('battle_id', $battle->id);
-      }])->with('user')->get();
+      })->with('user')->with('entry')->get();
       
       return VoteResource::collection($votes);
     }

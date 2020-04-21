@@ -24,7 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('battles:process')->everyMinute();
+        $schedule->command('battles:process')
+          ->everyMinute()
+          ->appendOutputTo(storage_path('logs/process_battles.log'));
     }
 
     /**

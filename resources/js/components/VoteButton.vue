@@ -1,6 +1,6 @@
 <template>
-  <div @click="$emit('click')">
-    <svg class="heart-svg" :class="{'active' : value}" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
+  <div @click="!disabled && $emit('click')">
+    <svg class="heart-svg" :class="{'active' : value, 'disabled' : disabled}" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
       <g class="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
         <path class="heart" d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" fill="#AAB8C2" />
         <circle class="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5" />
@@ -61,6 +61,7 @@ svg{
 
 svg.active{
     .heart{transform:scale(.2); fill:#E2264D; animation:animateHeart .3s linear forwards .25s;}
+    .heart{transform:scale(.2); fill:rgb(204, 81, 105); animation:animateHeart .3s linear forwards .25s;}
     .main-circ{transition:all 2s; animation:animateCircle .3s linear forwards; opacity:1;}
     .grp1{
       opacity:1; transition:.1s all .3s;
@@ -173,6 +174,10 @@ export default {
       default: () => {}
     },
     value: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       default: false
     }
