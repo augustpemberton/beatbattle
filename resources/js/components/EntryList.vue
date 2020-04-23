@@ -19,10 +19,15 @@
               {{ entry.user.name }}
             </div>
             <div class="col-sm-2">
-              <spinner ref="spinner" class="vote-count float-left" />
+              <spinner
+                ref="spinner"
+                class="vote-count float-right"
+                :number="hasVotingEnded ? voteCount(entry) : null"
+              />
               <vote-button
+                v-if="hasBattleEnded"
                 class="vote-btn float-right"
-                :disabled="!(hasBattleEnded && !hasVotingEnded)"
+                :disabled="hasVotingEnded"
                 :entry="entry"
                 :value="isActiveVote(entry)"
                 @click="vote(entry)"
@@ -69,11 +74,6 @@ export default {
       default: null
     }
   },
-  data () {
-    return {
-      showVotes: {}
-    }
-  },
   computed: {
     sortedEntries () {
       return this.entries.slice().sort((a, b) => {
@@ -92,9 +92,6 @@ export default {
   },
   mounted () {
     this.$store.dispatch('battles/fetchVotes', this.$route.params.id)
-    this.entries.forEach(entry => {
-      this.$set(this.showVotes, entry.id, false)
-    })
   },
   methods: {
     isUserEntry (entry) {
@@ -140,19 +137,20 @@ export default {
       if (!this.votes(this.$route.params.id)) return 0
       return this.votes(this.$route.params.id).filter(v => v.entry_id === entry.id).length
     },
-    animateEntries () {
+    animateEntries (timer) {
       var self = this
-      var i = 0;
+      var i = 0
+      if (self.sortedEntries.length === 0) return;
       (function f (i) {
-        self.activateSpinner(self.sortedEntries[i], i)
+        self.activateSpinner(i, timer)
         setTimeout(function () {
           if (i < self.sortedEntries.length - 1) f(i + 1)
-        }, 2000)
+        }, timer * 1000)
       })(i)
     },
-    activateSpinner (e, i) {
-      this.$set(this.showVotes, e.id, true)
-      this.$refs.spinner[i].spin(this.voteCount(e), 2)
+    activateSpinner (i, t) {
+      // this.$refs.spinner[i].spin(t)
+      this.$refs.spinner[i].spin(3)
     }
   }
 }

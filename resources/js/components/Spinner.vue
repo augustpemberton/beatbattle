@@ -15,16 +15,22 @@ import $ from 'jquery'
 
 export default {
   name: 'Spinner',
+  props: {
+    number: {
+      type: Number,
+      default: null
+    }
+  },
   data () {
     return {
       id: null,
-      number: 100,
       slots_per_reel: 10,
       reel_radius: 80
     }
   },
   computed: {
     digits () {
+      if (this.number === null) return ''
       return this.pad(this.number.toString(), 2)
     },
     slots () {
@@ -33,19 +39,24 @@ export default {
   },
   mounted () {
     this.id = this._uid
+    this.$nextTick(function () {
+      this.spin(1)
+    })
   },
   methods: {
-    spin (number, timer) {
-      this.number = number
-      for (var i = 0; i < this.slots; i++) {
+    spin (timer) {
+      console.log(this.id + ': spinning to ' + this.number + ' in ' + timer + 's')
+      for (var i = 0; i < this.pad(this.number.toString(), 2).length; i++) {
         var ringID = '#ring-' + this.id + '-' + i
-        this.createSlots($(ringID), this.digits[i])
+        console.log($(ringID))
+        this.createSlots($(ringID))
         $(ringID)
           .css('animation', 'back-spin 1s, spin-' + this.digits[i] + ' ' + (timer + i) + 's')
           .attr('class', 'ring spin-' + this.digits[i])
       }
     },
-    createSlots (ring, n) {
+    createSlots (ring) {
+      console.log('creating slots:' + ring)
       var slotAngle = 360 / this.slots_per_reel
 
       for (var i = 0; i < this.slots_per_reel; i++) {

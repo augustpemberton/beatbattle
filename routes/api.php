@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 * M
 */
 Route::apiResource('battles', 'BattleController');
+Route::apiResource('chat', 'ChatController')->except(['update', 'destroy']);
 Route::apiResource('samples', 'SampleController')->except(['store']);
 Route::apiResource('entries', 'EntryController')->except(['index']);
 Route::post('/votes', 'VoteController@store');

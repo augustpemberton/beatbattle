@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class VoteController extends BaseController
 {
     public function __construct() {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api')->except(['show']);
     }
 
     public function show($battleID) {

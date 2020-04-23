@@ -72,10 +72,8 @@ class BattleController extends BaseController
         }
 
         if ($battle->end_time->isPast()) {
-          return $this->sendError('This battle has already finished.', 422);
-        }
-
-        if ($battle->start_time->isPast()) {
+          $battle->update($request->only(['name', 'description', 'voting_time']));
+        } else if ($battle->start_time->isPast()) {
           $battle->update($request->only(['name', 'description', 'end_time']));
         } else {
           $battle->update($request->only(['name', 'description', 'start_time', 'end_time']));

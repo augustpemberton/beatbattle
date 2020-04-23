@@ -29,7 +29,7 @@
 
       <!-- Start Time -->
       <div class="form-group">
-        <label for="start-time-input">Start Time</label>
+        <label for="start-time-input">Battle Start Time</label>
         <datetime
           id="start-time-input"
           v-model="battleUpdate.start_time"
@@ -44,7 +44,7 @@
 
       <!-- End Time -->
       <div class="form-group">
-        <label for="end-time-input">End Time</label>
+        <label for="end-time-input">Submission Deadline</label>
         <datetime
           id="end-time-input"
           v-model="battleUpdate.end_time"
@@ -59,36 +59,14 @@
 
       <!-- Voting Time -->
       <div class="form-group">
-        <label for="voting-time-input">Voting Period</label>
-        <select
+        <label for="voting-time-input">Voting Deadline</label>
+        <datetime
           id="voting-time-input"
-          v-model="voting_period"
-          class="form-control"
+          v-model="battleUpdate.voting_time"
+          :min-datetime="$moment(battle.end_time).add(1, 'minutes').toISOString()"
           :class="{ 'is-invalid': battleUpdate.errors.has('voting_time') }"
-          @change="changeVotingTime"
-        >
-          <option value="5">
-            5 mins
-          </option>
-          <option value="10">
-            10 mins
-          </option>
-          <option value="30">
-            30 mins
-          </option>
-          <option value="60">
-            1 hour
-          </option>
-          <option value="1440">
-            1 day
-          </option>
-          <option value="10080">
-            1 week
-          </option>
-          <option value="custom">
-            Custom time
-          </option>
-        </select>
+          type="datetime"
+        />
         <has-error :form="battleUpdate" field="voting_time" />
       </div>
 
@@ -123,21 +101,12 @@ export default {
         name: this.battle.name,
         description: this.battle.description,
         start_time: this.battle.start_time,
-        end_time: this.battle.end_time
-      }),
-      voting_period: '30',
-      custom_voting_time: null
+        end_time: this.battle.end_time,
+        voting_time: this.battle.voting_time
+      })
     }
   },
   computed: {
-    voting_time () {
-      if (this.voting_period === 'custom') {
-        return this.custom_voting_time
-      } else {
-        return this.$moment(this.battle.end_time)
-          .add(parseInt(this.voting_period), 'minutes').toISOString()
-      }
-    },
     hasBattleStarted () {
       var battleStartTime = this.$moment(this.battle.start_time)
       return (this.$moment() > battleStartTime)
@@ -165,7 +134,7 @@ export default {
       var data = {
         name: this.battleUpdate.name,
         description: this.battleUpdate.description,
-        voting_time: this.voting_time
+        voting_time: this.battleUpdate.voting_time
       }
 
       if (!this.hasBattleStarted) {
@@ -201,11 +170,6 @@ export default {
           this.$noty.success('Battle deleted successfully.')
         }
       })
-    },
-    changeVotingTime ($event) {
-      if (this.voting_period === 'custom') {
-        this.$refs.custom_voting_time.open($event)
-      }
     }
   }
 }

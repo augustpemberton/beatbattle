@@ -16,6 +16,8 @@ import BattleCountdown from './BattleCountdown'
 import VoteButton from './VoteButton'
 import Spinner from './Spinner'
 import AudioPlayer from './AudioPlayer'
+import Chat from './Chat'
+import Message from './Message'
 import { HasError, AlertError, AlertSuccess } from 'vform'
 
 // Components that are registered globaly.
@@ -39,7 +41,9 @@ import { HasError, AlertError, AlertSuccess } from 'vform'
   BattleCountdown,
   VoteButton,
   Spinner,
-  AudioPlayer
+  AudioPlayer,
+  Chat,
+  Message
 
 ].forEach(Component => {
   Vue.component(Component.name, Component)

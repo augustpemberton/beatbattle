@@ -41,7 +41,7 @@
 
       <!-- Start Time -->
       <div class="form-group">
-        <label for="start-time-input">Start Time</label>
+        <label for="start-time-input">Battle Start Time</label>
         <datetime
           id="start-time-input"
           v-model="battle.start_time"
@@ -54,7 +54,7 @@
 
       <!-- End Time -->
       <div class="form-group">
-        <label for="end-time-input">End Time</label>
+        <label for="end-time-input">Submission Deadline</label>
         <datetime
           id="end-time-input"
           v-model="battle.end_time"
@@ -67,7 +67,7 @@
 
       <!-- Voting Time -->
       <div class="form-group">
-        <label for="voting-time-input">Voting Period</label>
+        <label for="voting-time-input">Voting Deadline</label>
         <select
           id="voting-time-input"
           v-model="voting_period"

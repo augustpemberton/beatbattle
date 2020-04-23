@@ -37,7 +37,7 @@ class UpdateBattleRequest extends FormRequest
     public function messages()
     {
       return [
-        'end_time.date_difference_minutes'    => 'End time must be at least 10 minutes after start time.',
+        'end_time.after'    => 'End time must be at least 10 minutes after start time.',
         'voting_time.date_difference_minutes' => 'Voting period must be at least 1 minute.'
       ];
     }

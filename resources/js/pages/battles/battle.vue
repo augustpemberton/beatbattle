@@ -8,7 +8,7 @@
         won by {{ battle.winner.name }}
       </h2>
       <div v-if="user && battle.user && battle.user.id === user.id" class="float-right">
-        <button :disabled="hasBattleEnded" class="btn btn-info" @click="$modal.show('edit-battle')">
+        <button :disabled="hasVotingEnded" class="btn btn-info" @click="$modal.show('edit-battle')">
           <fa icon="cog" fixed-width />
         </button>
         <edit-battle :battle="battle" />
@@ -169,10 +169,14 @@ export default {
       .listen('DeleteEntry', (e) => {
         this.$store.commit('battles/DELETE_ENTRY', { userid: e.user_id, battleid: e.battle_id })
       })
+
+    window.echo.channel('battles')
       .listen('BattleFinished', (e) => {
-        console.log('battle finished')
-        this.$refs.entry_list.animateEntries()
-        this.$store.dispatch('battles/fetchBattle', this.$route.params.id)
+        console.log(e)
+        if (e.battle_id === this.battle.id) {
+          this.$refs.entry_list.animateEntries()
+          this.$store.dispatch('battles/fetchBattle', this.$route.params.id)
+        }
       })
   },
   methods: {
