@@ -43,9 +43,6 @@
           </div>
         </li>
       </transition-group>
-      <button @click="animateEntries">
-        Animate entries
-      </button>
     </div>
   </div>
 </template>
