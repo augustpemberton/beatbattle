@@ -70,8 +70,14 @@ class ProcessBattles extends Command
       foreach ($finished_battles as $battle) {
         $winning_entry = Entry::withCount('votes')
           ->where('battle_id', $battle->id)
+          ->whereHas('user', function($q) use($battle) {
+            $q->whereHas('votes', function($q2) use($battle) {
+              $q2->where('battle_id', $battle->id);
+            });
+          })
           ->orderBy('votes_count', 'desc')
           ->first();
+          $this->info('Winner: ' . $winning_entry->user->name);
         if (!$winning_entry) {
           $this->error('No winning entry.');
         } else {

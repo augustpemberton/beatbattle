@@ -11,7 +11,7 @@
       <transition-group class="list-group" name="fade-right" tag="ul">
         <li
           v-for="entry in sortedEntries"
-          :key="entry.id" class="list-group-item clearfix"
+          :key="entry.sample.id" class="list-group-item clearfix"
           :class="{'user-entry': isUserEntry(entry), 'winning-entry': isWinningEntry(entry)}"
         >
           <div class="row">
@@ -25,9 +25,9 @@
                 :number="hasVotingEnded ? voteCount(entry) : null"
               />
               <vote-button
-                v-if="hasBattleEnded"
+                v-if="votes && hasBattleEnded"
                 class="vote-btn float-right"
-                :disabled="hasVotingEnded"
+                :disabled="hasVotingEnded || isUserEntry(entry) || !user"
                 :entry="entry"
                 :value="isActiveVote(entry)"
                 @click="vote(entry)"
@@ -74,11 +74,27 @@ export default {
       default: null
     }
   },
+  data () {
+    return {
+      showWinner: false
+    }
+  },
   computed: {
     sortedEntries () {
-      return this.entries.slice().sort((a, b) => {
+      return this.qualifiedEntries.slice().sort((a, b) => {
         if (this.isUserEntry(a)) return -1
         return (this.$moment(a.date) > this.$moment(b.date))
+      })
+    },
+    qualifiedEntries () {
+      var self = this
+      if (!this.hasVotingEnded) return this.entries
+      if (!self.votes(this.$route.params.id)) return []
+      console.log(this.votes(this.$route.params.id))
+      return self.entries.filter(e => {
+        return (!!self.votes(this.$route.params.id).find(v => {
+          return v.user.id === e.user.id
+        }))
       })
     },
     userVotes () {
@@ -91,16 +107,23 @@ export default {
     })
   },
   mounted () {
+    if (this.winner) {
+      this.showWinner = true
+    }
     this.$store.dispatch('battles/fetchVotes', this.$route.params.id)
   },
   methods: {
+    didUserVote (entry) {
+      if (!this.votes) return false
+      return this.votes.filter(v => v.user_id === entry.user_id)
+    },
     isUserEntry (entry) {
       if (!this.user) return false
       return (entry.user.id === this.user.id)
     },
     isWinningEntry (entry) {
-      if (!this.winner || !this.entry) return false
-      return (this.winner.id === this.entry.user.id)
+      if (!this.winner) return false
+      return (this.showWinner && this.winner.id === entry.user.id)
     },
     vote (entry) {
       if (this.isActiveVote(entry)) {
@@ -137,15 +160,21 @@ export default {
       if (!this.votes(this.$route.params.id)) return 0
       return this.votes(this.$route.params.id).filter(v => v.entry_id === entry.id).length
     },
-    animateEntries (timer) {
+    animateEntries (timer = 2) {
       var self = this
       var i = 0
       if (self.sortedEntries.length === 0) return;
       (function f (i) {
         self.activateSpinner(i, timer)
-        setTimeout(function () {
-          if (i < self.sortedEntries.length - 1) f(i + 1)
-        }, timer * 1000)
+        if (i < self.sortedEntries.length - 1) {
+          setTimeout(function () {
+            f(i + 1)
+          }, timer * 1000)
+        } else {
+          setTimeout(function () {
+            self.showWinner = true
+          }, timer * 1000 * 2.5)
+        }
       })(i)
     },
     activateSpinner (i, t) {
@@ -171,6 +200,7 @@ export default {
 
 .winning-entry {
   border: 5px solid red;
+  transition: border 1s;
 }
 
 .vote-btn {

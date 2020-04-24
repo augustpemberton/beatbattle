@@ -75,9 +75,15 @@
         Update Battle
       </v-button>
 
+      <!-- Delete -->
       <button class="btn btn-warn" @click.prevent="deleteBattle">
         <fa icon="trash" fixed-width />
       </button>
+
+      <!-- Timezone display -->
+      <div v-if="user != null" class="form-timezone">
+        <small id="timezone-info" class="form-text text-muted">Timezone: {{ timezone }}</small>
+      </div>
     </form>
   </modal>
 </template>
@@ -118,7 +124,8 @@ export default {
       return (this.$moment() > battleEndTime)
     },
     ...mapGetters({
-      user: 'auth/user'
+      user: 'auth/user',
+      timezone: 'timezone/timezone'
     })
   },
   watch: {

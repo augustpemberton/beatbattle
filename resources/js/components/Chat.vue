@@ -4,14 +4,14 @@
       <message v-for="(message, index) in messages" :key="index" :message="message" />
     </ul>
     <footer>
-      <div class="input-group mb-3">
+      <form class="p-0 input-group mb-3" @submit.prevent="sendMessage">
         <input id="chat-input" v-model="messageInput" type="text" class="form-control" placeholder="Enter message here">
         <div class="input-group-append">
-          <button type="submit" class="btn btn-outline-secondary" @click.prevent="sendMessage">
+          <button type="submit" class="btn btn-outline-secondary">
             Send
           </button>
         </div>
-      </div>
+      </form>
     </footer>
   </div>
 </template>
@@ -40,7 +40,6 @@ export default {
     async updateChat () {
       try {
         var messages = await axios.get('/api/chat')
-        console.log(messages)
         this.messages = messages.data.data
       } catch (e) {
         console.log(e)

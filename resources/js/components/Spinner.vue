@@ -37,16 +37,22 @@ export default {
       return this.digits.length
     }
   },
+  watch: {
+    number (newVal) {
+      this.spin(0)
+    }
+  },
   mounted () {
     this.id = this._uid
     this.$nextTick(function () {
-      this.spin(1)
+      if (this.number != null) {
+        this.spin(1)
+      }
     })
   },
   methods: {
     spin (timer) {
-      console.log(this.id + ': spinning to ' + this.number + ' in ' + timer + 's')
-      for (var i = 0; i < this.pad(this.number.toString(), 2).length; i++) {
+      for (var i = 0; i < this.digits.length; i++) {
         var ringID = '#ring-' + this.id + '-' + i
         console.log($(ringID))
         this.createSlots($(ringID))

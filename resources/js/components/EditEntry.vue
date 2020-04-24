@@ -106,7 +106,7 @@ export default {
           this.$noty.success('Entry deleted successfully.')
         }
       })
-    },
+    }
   }
 }
 </script>

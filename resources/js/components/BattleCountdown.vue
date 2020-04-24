@@ -6,7 +6,7 @@
     :start-label="startLabel"
     :end-label="endLabel"
     label-position="begin"
-    :end-text="'Event ended'"
+    :end-text="endText"
     :day-txt="'days'"
     :hour-txt="'hours'"
     :minutes-txt="'minutes'"
@@ -60,6 +60,10 @@ export default {
     endLabel: {
       type: String,
       default: null
+    },
+    endText: {
+      type: String,
+      default: () => 'picking winner...'
     }
   },
   methods: {

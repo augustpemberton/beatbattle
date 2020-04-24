@@ -27,6 +27,10 @@ class VoteController extends BaseController
 
     public function store(VoteRequest $request) {
       $vote = new Vote;
+      $entry = Entry::findOrFail($request->input('entry_id'));
+      if ($entry->user->id == $request->user()->id) {
+        return $this->sendError('You cannot vote for yourself.', 422);
+      }
       $vote->user_id = $request->user()->id;
       $vote->entry_id = $request->input('entry_id');
       $vote->save();

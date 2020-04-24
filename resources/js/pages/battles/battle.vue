@@ -4,9 +4,6 @@
       <h1 class="float-left">
         {{ battle.name }}
       </h1>
-      <h2 v-if="battle.winner">
-        won by {{ battle.winner.name }}
-      </h2>
       <div v-if="user && battle.user && battle.user.id === user.id" class="float-right">
         <button :disabled="hasVotingEnded" class="btn btn-info" @click="$modal.show('edit-battle')">
           <fa icon="cog" fixed-width />
@@ -23,6 +20,13 @@
 
     <div class="row battle-info">
       <div class="col-sm">
+        <!-- Description -->
+        <div class="sample-description">
+          <pre>
+{{ battle.description }}
+          </pre>
+        </div>
+
         <!-- Countdown Timer -->
         <div class="countdown-timer">
           <battle-countdown
@@ -31,6 +35,7 @@
             :end-time="battle.end_time"
             start-label="Battle starts in"
             end-label="Battle ends in"
+            end-text=""
             @timer-start="battleStart"
             @timer-end="battleEnd"
           />
@@ -41,11 +46,6 @@
             end-label="Voting ends in"
             @timer-end="votingEnd"
           />
-        </div>
-
-        <!-- Description -->
-        <div class="sample-description">
-          {{ battle.description }}
         </div>
 
         <!--Submissions times -->
@@ -90,11 +90,11 @@
       </div>
     </div>
     <div v-if="hasBattleStarted" class="row entries-info">
-      <div class="col-sm">
+      <div class="col-sm mt-2">
         <!-- Entries -->
         <h2>entries</h2>
         <entry-list
-          ref="entry_list"
+          ref="entrylist"
           :entries="battleEntries"
           :has-battle-ended="hasBattleEnded"
           :has-voting-ended="hasVotingEnded"
@@ -174,12 +174,17 @@ export default {
       .listen('BattleFinished', (e) => {
         console.log(e)
         if (e.battle_id === this.battle.id) {
-          this.$refs.entry_list.animateEntries()
+          this.animateEntries()
           this.$store.dispatch('battles/fetchBattle', this.$route.params.id)
         }
       })
   },
   methods: {
+    animateEntries () {
+      this.$nextTick(() => {
+        this.$refs.entrylist.animateEntries()
+      })
+    },
     update () {
       // no need to update battles if already loaded by battles page
       if (this.battles.length === 0) {
@@ -223,7 +228,7 @@ export default {
   min-height: 100vh;
 }
 .battle-info {
-  min-height: 40vh;
+  min-height: 30vh;
 }
 .entries-info {
   height: 100%;

@@ -5,10 +5,10 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-3">
-          <chat class="sticky-top pt-4" />
+          <chat class="chat sticky-top pt-4" />
         </div>
         <div class="col-md">
-          <div class="container mt-4">
+          <div class="main container mt-4">
             <child />
           </div>
         </div>
@@ -28,3 +28,11 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.chat {
+  z-index: 1;
+}
+.main {
+  z-index: 100;
+}
+</style>

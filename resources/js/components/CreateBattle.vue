@@ -117,9 +117,10 @@
       <v-button :loading="battle.busy">
         Create Battle
       </v-button>
+
       <!-- Timezone display -->
       <div v-if="user != null" class="form-timezone">
-        <small id="timezone-info" class="form-text text-muted">Timezone: {{ user.timezone }}</small>
+        <small id="timezone-info" class="form-text text-muted">Timezone: {{ timezone }}</small>
       </div>
     </form>
   </modal>
@@ -154,7 +155,8 @@ export default {
       }
     },
     ...mapGetters({
-      user: 'auth/user'
+      user: 'auth/user',
+      timezone: 'timezone/timezone'
     })
   },
   methods: {
@@ -179,7 +181,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 form {
   padding: 20px;
 }
